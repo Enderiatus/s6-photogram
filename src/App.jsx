@@ -1,23 +1,21 @@
 /* React kütüphanesinden useState'i import et */
 /* İlgili dosyadan sampleData'yı import et */
 /* İlgili dosyadan PostList'i import et */
+
+import { useState } from "react";
+import sampleData from "./sampleData.js";
+import PostList from "./components/PostList.jsx";
 import "./App.css";
 
 function App() {
   /* Bir state oluştur, sampleData bu state'in başlangıç değeri olmalı  */
+  const [place, setPlace] = useState(sampleData);
 
   function handleClap(postId) {
-    /*
-      state oluşturduktan sonra:
-      - alttaki kodda place ve setPlace'i kendi verdiğin isimlerle değiştir
-      - kodu yorumdan çıkar
-    */
-    /*
-      const copyState = [...place];
-      const clappedItem = copyState.filter((item) => item.id === postId)[0];
-      clappedItem.claps = clappedItem.claps + 1;
-      setPlace(copyState);
-    */
+    const copyState = [...place];
+    const clappedItem = copyState.filter((item) => item.id === postId)[0];
+    clappedItem.claps = clappedItem.claps + 1;
+    setPlace(copyState);
   }
 
   return (
@@ -25,15 +23,7 @@ function App() {
       <div className="page-header">
         <h1>photogram.</h1>
       </div>
-      {/*
-        State içinde saklanan veriyi, PostList ve map metodu kullanarak listele.
-        - key vermeyi unutma, değer olarak id'yi kullanabilirsin.
-        - map metodu ve key kullanımını PostList dosyasından öğrenebilirsin.
-      */}
-
-      {/*
-        PostList componentı kullanıma hazır. Kodunu incele ve gerekli props'ları gönder.
-      */}
+      <PostList items={place} clapAction={handleClap} />
     </div>
   );
 }

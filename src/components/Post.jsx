@@ -1,28 +1,24 @@
 import { HandsClappingIcon } from "@phosphor-icons/react";
+import PostComment from "./PostComment.jsx";
 /* İlgili dosyadan PostComment'i import et */
 
-/* PostList componentı bu componenta props olarak ne gönderiyor, incele ve kodun geri kalanını buna göre düzenle. */
-export default function Post(/* burada ne olmalı? */) {
+export default function Post({ item, onClap }) {
   return (
     <div className="post">
-      <img src="" /> {/* imageUrl */}
+      <img src={item.imageUrl} alt={item.username} />
       <div className="post-header">
-        <span className="post-owner"></span> {/* username */}
+        <span className="post-owner">{item.username}</span>
         <span>&middot;</span>
-        <span className="post-date"></span> {/* timestamp */}
-        {/* buttona onClick ver, burada onClap'i post'un id'sini vererek kullan. */}
-        <button className="post-clap">
+        <span className="post-date">{item.timestamp}</span>
+        <button className="post-clap" onClick={() => onClap(item.id)}>
           <HandsClappingIcon />
-          <span></span> {/* claps sayısı */}
+          <span>{item.claps}</span>
         </button>
       </div>
       <div className="post-comments">
-        {/*
-          Postun comments arrayini, PostComment ve map metodu kullanarak listele.
-          - key vermeyi unutma, değer olarak id'yi kullanabilirsin.
-          - map metodu ve key kullanımını PostList dosyasından öğrenebilirsin.
-          - PostComment'e props olarak 1 tane veri göndermen bekleniyor. Ne göndermelisin? sampleData'yı inceleyerek bulabilirsin.
-        */}
+        {item.comments.map((post) => (
+          <PostComment key={post.id} comment={post} />
+        ))}
       </div>
     </div>
   );
